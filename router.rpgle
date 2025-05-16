@@ -1,5 +1,4 @@
-<%@ language="RPGLE"%>
-<%
+**free
 ctl-opt copyright('System & Method (C), 2025');
 ctl-opt decEdit('0,') datEdit(*YMD.) main(main); 
 ctl-opt bndDir('NOXDB':'ICEUTILITY':'QC2LE');
@@ -9,7 +8,7 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY':'QC2LE');
    Author  . . . : Niels Liisberg 
    Company . . . : System & Method A/S
   
-   CRTICEPGM STMF('/www/IceBreak-Samples/router.rpgle') SVRID(samples)
+   CRTICEPGM STMF('/prj/noxdb-tutorial/router.rpgle') SVRID(NOXDBTUT)
 
 
    By     Date       PTF     Description
@@ -24,7 +23,7 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY':'QC2LE');
 // --------------------------------------------------------------------
 dcl-proc main;
 
-	dcl-s pPayload       pointer;
+	dcl-s pPayload      pointer;
 	dcl-s pResponse		pointer;		
 
 	pPayload  = unpackParms();
@@ -55,7 +54,7 @@ dcl-proc runService export;
 		payload pointer value;
 	end-pr;
 	
-	dcl-s url 		varchar(128);
+	dcl-s url 			varchar(128);
 	dcl-s pgmName 		char(10);
 	dcl-s procName 		varchar(128);
 	dcl-s pProc			pointer (*PROC) static;
@@ -63,7 +62,7 @@ dcl-proc runService export;
 	dcl-s errText  		char(128);
 	dcl-s errPgm   		char(64);
 	dcl-s errList 		char(4096);
-    dcl-s urlParms 			int(10);
+    dcl-s urlParms 		int(10);
 
 
     url = strUpper(getServerVar('REQUEST_FULL_PATH'));
