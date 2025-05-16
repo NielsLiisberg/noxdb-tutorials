@@ -54,17 +54,17 @@ Go back to a 5250 prompt
 ```
 GO ICEBREAK 
 CALL QCMD
-ADDICESVR SVRID(tutorials) TEXT('noxDb tutorials') 
-    SVRPORT(60666) HTTPPATH('/prj/www/noxDb-tutorials') 
+ADDICESVR SVRID(NOXDBTUT) TEXT('noxDb tutorials') 
+    SVRPORT(60666) HTTPPATH('/prj/noxDb-tutorials') 
     WWWDFTDOC('default.html') DISPTHRMTH(*MULTITHREAD)         
-STRICESVR tutorials
+STRICESVR NOXDBTUT
 WRKICESBS 
 ```
-You will see the tutorials server running in the noxDb subsystem. Now we need to compile some of the tutorials ( still in the 5250 with noxDb on the library list):
+You will see the NOXDBTUT server running in the noxDb subsystem. Now we need to compile some of the tutorials ( still in the 5250 with noxDb on the library list):
 
 ```
-CRTICEPGM STMF('/prj/www/noxDb-tutorials/router.rpgle') SVRID(tutorials)
-CRTICEPGM STMF('/prj/www/noxDb-tutorials/msProduct.rpgle') SVRID(tutorials)
+CRTICEPGM STMF('/prj/noxDb-tutorials/router.rpgle') SVRID(NOXDBTUT)
+CRTICEPGM STMF('/prj/noxDb-tutorials/msProduct.rpgle') SVRID(NOXDBTUT)
 ```
 
 # Run the first sample
@@ -89,7 +89,7 @@ When you open VSCode then:
 Open "Extensions" and search for "RPG".
 Click on "RPG for IBM i" and you have installed what you need.
 
-If you now map a network drive to the /prj/www/noxDb-tutorials folder and "drag" that into the VSCode editor - it will open it as workspace (a project) and now the noxDb compiler is available.
+If you now map a network drive to the /prj/noxDb-tutorials folder and "drag" that into the VSCode editor - it will open it as workspace (a project) and now the noxDb compiler is available.
 
 When you click and open a file with RPGLE or SQLRPGLE extension then you can press "Shift-Cmd-B" for build. Or find the build task in the menu.
 
@@ -136,7 +136,7 @@ PATH=/QOpenSys/pkgs/bin:$PATH
 4. Now select the ```noxDb Compile From IFS to application library``` will appear. Select that.
 5. In the status bar ( the bottom left of the VSCode screen) You can see The number of **Warning, Info and Errors** in the code.
 6. Clicking  **Warning, Info and Errors** will bring up the *"PROBLEMS"* window.
-7. You will see the ```msProduct.rpgle" / "OK compile of /prj/www/noxDb-tutorials/msProduct.rpgle for server tutorials``` with a blue info icon to the left.
+7. You will see the ```msProduct.rpgle" / "OK compile of /prj/noxDb-tutorials/msProduct.rpgle for server tutorials``` with a blue info icon to the left.
 8. If not... Click on the error icon and it will bring you to the *"PROBLEM"* in the code. It will place the cursor on the line with error and show the compiler error associated with that line.
 9. Fix the error - and press <CTRL-b> for build again. That is step 3.
 10. Not errors? Great !! Click on the search icon in the browser application you already have running at [http://MY_IBM_I:60666](http://MY_IBM_I:60666) 

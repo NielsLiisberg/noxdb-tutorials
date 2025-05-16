@@ -1,0 +1,9 @@
+{
+	"profile":"*YourIBMiuserid",
+	"targetLibrary":"*YourIBMiWorkingLibrary",
+	"teamToken":"TGl2ZXQgZXIgZW4gZ2F2ZQ==",
+	"serverId":"NOXDBTUT",
+	"serverUrl":"http://DKSRV133:60666",
+	"environment":"ICEBREAK",
+	"path":"/prj/noxDb-tutorials"
+}

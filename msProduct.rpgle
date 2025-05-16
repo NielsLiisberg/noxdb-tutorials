@@ -1,19 +1,19 @@
 <%@ language="RPGLE" pgmtype="srvpgm" pgmopt="export(*ALL)" %>
 <%
-ctl-opt copyright('System & Method (C), 2019-2022');
+ctl-opt copyright('System & Method (C), 2019-2025');
 ctl-opt decEdit('0,') datEdit(*YMD.) nomain; 
 ctl-opt bndDir('NOXDB' );
 /* -----------------------------------------------------------------------------
 
-  CRTICEPGM STMF('/www/IceBreak-Samples/msProduct.rpgle') SVRID(samples)
+  CRTICEPGM STMF('/prj/noxdb-tutorials/msProduct.rpgle') SVRID(NOXDBTUT)
 
 
   By     Date       PTF     Description
   ------ ---------- ------- ---------------------------------------------------
-  NLI    22.06.2019         New program
+  NLI    16.05.2025         New program
   ----------------------------------------------------------------------------- */
- /include noxDB
- /include qasphdr,iceUtility
+ /include qrpgleref,noxDB
+ /include qrpgleref,iceUtility
 
 /* -------------------------------------------------------------------- *\ 
    	return a resulset from the SQL select 
@@ -26,7 +26,7 @@ ctl-opt bndDir('NOXDB' );
 	Only use the HTTP GET .. ?payload for test and debugging. Never in production.  
 
 	// Rest style
-	http://MY_IBM_I:60060/router/msProduct/simple?payload={}
+	http://MY_IBM_I:60666/router/msProduct/simple?payload={}
 
 	
 \* -------------------------------------------------------------------- */
@@ -58,28 +58,13 @@ end-proc;
 	Only use the HTTP GET .. ?payload for test and debugging. Never in production.  
 
 	// Rest style
-	http://MY_IBM_I:60060/router/msProduct/getRows?payload={
+	http://MY_IBM_I:60666/router/msProduct/getRows?payload={
 		"start": 11,
 		"limit": 20,
 		"search" : "sony"
 	}
 
-	// "seneca" style
-	http://MY_IBM_I:60060/router?payload={
-		"action":"msProduct.getRows",
-		"start": 11,
-		"limit": 20,
-		"search" : "sony"
-	}
 
-	// "seneca" style
-	http://MY_IBM_I:60060/router?payload={
-		"action":"msProduct.getRows",
-		"start": 11,
-		"limit": 20,
-		"where" : "price > 200",
-		"sort"  : "price"
-	}
 \* -------------------------------------------------------------------- */
 dcl-proc getRows export;
 
@@ -272,7 +257,7 @@ end-proc;
 /* -------------------------------------------------------------------- *\ 
    	Get the table metadata: columns and types
 
-	http://sandbox.icebreak.org:60060/router?payload={
+	http://sandbox.icebreak.org:60666/router?payload={
 		"action":"msProduct.getMetadata"
 	}
 
