@@ -1,5 +1,5 @@
 # noxDb Tutorial 
-RPG samples using noxDB, Microservices
+RPG tutorials using noxDB, Microservices
 
 noxDb is a powerful JSON,XML,SQL and program/serviceprogram framework for ILE on the IBM i™
 noxDb runs natively on IBM i™ in the ILE environment - no PASE or any other moving parts.
@@ -14,48 +14,9 @@ https://github.com/sitemule/noxDB
 
 I am use IceBreak applications server for this tutorial - however, this is not required - but makes life so muc easier.
 
-Create an IceBreak applications server to play with 
-
-
-
-1. When the script completes, it will show you a list of all active server. Among these you will have the **SAMPLES** noxDb server listening on port 60666 ready to play with.
-10. Open you browser and enter: [http://MY_IBM_I:60666](http://MY_IBM_I:60666) and the first application will appear. However - no data ?? Your service-layer will first be made in a moment..  
-11. Before you start editing the examples, please install the VSCode extension **"RPG for IBM i"** 
-
-
-The installation is ready, however the data was missing in our example. Now it is time to compile the service that provides the data store for our web-application:
-
-
-1. Open the the source **msProduct.rpgle** by double clicking the name in the VSCode "Explorer" window.
-2. The source for **msProduct.rpgle**  will now appear in editor window.
-3. If you press: Build. That is ```CTRL-b (win)``` OR ```Command-B (mac)```  OR click ```View->Command Palette->Build->Build: Run Build Task``` then the *noxDb build system* kicks in.
-4. Now select the ```noxDb Compile From IFS to application library``` will appear. Select that.
-5. In the status bar ( the bottom left of the VSCode screen) You can see The number of **Warning, Info and Errors** in the code.
-6. Clicking  **Warning, Info and Errors** will bring up the *"PROBLEMS"* window.
-7. You will see the ```msProduct.rpgle" / "OK compile of /prj/www/noxDb-samples/msProduct.rpgle for server SAMPLES``` with a blue info icon to the left.
-8. If not... Click on the error icon and it will bring you to the *"PROBLEM"* in the code. It will place the cursor on the line with error and show the compiler error associated with that line.
-9. Fix the error - and press <CTRL-b> for build again. That is step 3.
-10. Not errors? Great !! Click on the search icon in the browser application you already have running at [http://MY_IBM_I:60666](http://MY_IBM_I:60666) 
-11. We have a service running !! Now examine all the other examples. Perhaps some treasures are hidden there ;) 
-
-
-... Hey wait a minute!! When i look in the *browser console network trace* - it refers to a resource called **router** - is this a magic word? 
-
-No! magic perhaps, but it actually the noxDb Just In Time (JIT) compiler that behind the scenes compiles the router code because the IBM i object does not exists for that source - or the source code is  modified AFTER the object was created. 
-
-Please fell free to open and edit the **router.rpgle**. This is an esential part of microservices.   
-
-Perhaps it is time to look at the documentation. The admin-server also provides that: [http://MY_IBM_I:7000](http://MY_IBM_I:7000)  or skip to the section [Run the first sample](#Run-the-first-sample) that covers the above in more details.
-
-
-
-Happy noxDb coding.
-
-*Niels Liisberg.*
-
 
 ___
-## Install the samples via IBM i
+## Install the tutorials via IBM i
 
 Before you can clone this git repo - you first need to have git on your IBM i:
 
@@ -82,7 +43,7 @@ ssh MY_IBM_I
 PATH=/QOpenSys/pkgs/bin:$PATH
 yum install git
 ```
-And now in the same ssh session - clone the samples repo 
+And now in the same ssh session - clone the tutorials repo 
 ```
 cd /www
 git -c http.sslVerify=false clone https://github.com/NielsLiisberg/noxDb-tutorials.git
@@ -93,17 +54,17 @@ Go back to a 5250 prompt
 ```
 GO ICEBREAK 
 CALL QCMD
-ADDICESVR SVRID(SAMPLES) TEXT('noxDb samples') 
-    SVRPORT(60666) HTTPPATH('/prj/www/noxDb-samples') 
+ADDICESVR SVRID(tutorials) TEXT('noxDb tutorials') 
+    SVRPORT(60666) HTTPPATH('/prj/www/noxDb-tutorials') 
     WWWDFTDOC('default.html') DISPTHRMTH(*MULTITHREAD)         
-STRICESVR SAMPLES
+STRICESVR tutorials
 WRKICESBS 
 ```
-You will see the samples server running in the noxDb subsystem. Now we need to compile some of the samples ( still in the 5250 with noxDb on the library list):
+You will see the tutorials server running in the noxDb subsystem. Now we need to compile some of the tutorials ( still in the 5250 with noxDb on the library list):
 
 ```
-CRTICEPGM STMF('/prj/www/noxDb-Samples/router.rpgle') SVRID(samples)
-CRTICEPGM STMF('/prj/www/noxDb-Samples/msProduct.rpgle') SVRID(samples)
+CRTICEPGM STMF('/prj/www/noxDb-tutorials/router.rpgle') SVRID(tutorials)
+CRTICEPGM STMF('/prj/www/noxDb-tutorials/msProduct.rpgle') SVRID(tutorials)
 ```
 
 # Run the first sample
@@ -128,12 +89,12 @@ When you open VSCode then:
 Open "Extensions" and search for "RPG".
 Click on "RPG for IBM i" and you have installed what you need.
 
-If you now map a network drive to the /prj/www/noxDb-samples folder and "drag" that into the VSCode editor - it will open it as workspace (a project) and now the noxDb compiler is available.
+If you now map a network drive to the /prj/www/noxDb-tutorials folder and "drag" that into the VSCode editor - it will open it as workspace (a project) and now the noxDb compiler is available.
 
 When you click and open a file with RPGLE or SQLRPGLE extension then you can press "Shift-Cmd-B" for build. Or find the build task in the menu.
 
 # Microservices
-In the samples above is as close as you can get with RPG to the Microservice architecture. It is build around a "router" program and a "JSON in/JSON out" service program. This design pattern hides the HTTP protocol so it can be used in stored procedures, data queues and even called directly from other RPG programs. This allows you to make unit test and let your RPG applications work better in a DevOps environment.
+In the tutorials above is as close as you can get with RPG to the Microservice architecture. It is build around a "router" program and a "JSON in/JSON out" service program. This design pattern hides the HTTP protocol so it can be used in stored procedures, data queues and even called directly from other RPG programs. This allows you to make unit test and let your RPG applications work better in a DevOps environment.
 
 The "router" program is always called if the URL begins with "router". It is a regex set in the webconfig.xml. The router parses the URL, parse the input JSON and call the required service. Finally the router serializes the object graph into JSON for the HTTP client.
 
@@ -167,6 +128,36 @@ ADDENVVAR
 
 Or within the job
 PATH=/QOpenSys/pkgs/bin:$PATH
+
+
+1. Open the the source **msProduct.rpgle** by double clicking the name in the VSCode "Explorer" window.
+2. The source for **msProduct.rpgle**  will now appear in editor window.
+3. If you press: Build. That is ```CTRL-b (win)``` OR ```Command-B (mac)```  OR click ```View->Command Palette->Build->Build: Run Build Task``` then the *noxDb build system* kicks in.
+4. Now select the ```noxDb Compile From IFS to application library``` will appear. Select that.
+5. In the status bar ( the bottom left of the VSCode screen) You can see The number of **Warning, Info and Errors** in the code.
+6. Clicking  **Warning, Info and Errors** will bring up the *"PROBLEMS"* window.
+7. You will see the ```msProduct.rpgle" / "OK compile of /prj/www/noxDb-tutorials/msProduct.rpgle for server tutorials``` with a blue info icon to the left.
+8. If not... Click on the error icon and it will bring you to the *"PROBLEM"* in the code. It will place the cursor on the line with error and show the compiler error associated with that line.
+9. Fix the error - and press <CTRL-b> for build again. That is step 3.
+10. Not errors? Great !! Click on the search icon in the browser application you already have running at [http://MY_IBM_I:60666](http://MY_IBM_I:60666) 
+11. We have a service running !! Now examine all the other examples. Perhaps some treasures are hidden there ;) 
+
+
+... Hey wait a minute!! When i look in the *browser console network trace* - it refers to a resource called **router** - is this a magic word? 
+
+No! magic perhaps, but it actually the noxDb Just In Time (JIT) compiler that behind the scenes compiles the router code because the IBM i object does not exists for that source - or the source code is  modified AFTER the object was created. 
+
+Please fell free to open and edit the **router.rpgle**. This is an esential part of microservices.   
+
+Perhaps it is time to look at the documentation. The admin-server also provides that: [http://MY_IBM_I:7000](http://MY_IBM_I:7000)  or skip to the section [Run the first sample](#Run-the-first-sample) that covers the above in more details.
+
+
+
+Happy noxDb coding.
+
+*Niels Liisberg.*
+
+
 
 
 Have fun - and keep me posted :)
