@@ -12,7 +12,14 @@ Follow the installation processs
 https://github.com/sitemule/noxDB
 
 
-I am use IceBreak applications server for this tutorial - however, this is not required - but makes life so muc easier.
+I am use IceBreak applications server for this tutorial - however, this is not required - but makes life so much easier.
+
+# Install IceBreak
+IceBreak is a web server for RPG. It is a simple and easy to use web server for RPG applications.
+
+You can install IceBreak from the following link:
+https://install.icebreak.org
+
 
 
 ___
@@ -54,17 +61,17 @@ Go back to a 5250 prompt
 ```
 GO ICEBREAK 
 CALL QCMD
-ADDICESVR SVRID(NOXDBTUT) TEXT('noxDb tutorials') 
+ADDICESVR SVRID(noxdbtut) TEXT('noxDb tutorials') 
     SVRPORT(60666) HTTPPATH('/prj/noxDb-tutorials') 
     WWWDFTDOC('default.html') DISPTHRMTH(*MULTITHREAD)         
-STRICESVR NOXDBTUT
+STRICESVR noxdbtut
 WRKICESBS 
 ```
-You will see the NOXDBTUT server running in the noxDb subsystem. Now we need to compile some of the tutorials ( still in the 5250 with noxDb on the library list):
+You will see the tutorials server running in the noxDb subsystem. Now we need to compile some of the tutorials ( still in the 5250 with noxDb on the library list):
 
 ```
-CRTICEPGM STMF('/prj/noxDb-tutorials/router.rpgle') SVRID(NOXDBTUT)
-CRTICEPGM STMF('/prj/noxDb-tutorials/msProduct.rpgle') SVRID(NOXDBTUT)
+CRTICEPGM STMF('/prj/noxDb-tutorials/router.rpgle') SVRID(tutorials)
+CRTICEPGM STMF('/prj/noxDb-tutorials/msProduct.rpgle') SVRID(tutorials)
 ```
 
 # Run the first sample
@@ -102,20 +109,16 @@ Take a look at "router.rpgle" and "msProduct.rpgle" - they carry the whole secre
 
 
 # Consuming Services
-Take a look at msXlate.rpgle .This service is sending the request to Watson. Under the covers it uses cUrl so you have to installed that first:
+Under the covers noxDb are using cUrl, so you have to installed that first:
 
 From the ssh / shell prompt:
 ```
 PATH=/QOpenSys/pkgs/bin:$PATH
 yum install curl
 ```
-Before you run the Watson example you have to set up two things: 
+Before you run the client example you have to set up two things: 
 
-1) Get a application key from IBM / Watson: 
-
-https://cloud.ibm.com/docs/iam?topic=iam-manapikey
-
-2) Set the PATH environment for you job to include the opensource tooling - like:
+2) Set the PATH environment for you job to include the open source tooling - like:
 
 System wide once:
 
@@ -128,6 +131,11 @@ ADDENVVAR
 
 Or within the job
 PATH=/QOpenSys/pkgs/bin:$PATH
+
+Here is a nice description of how to set up the PATH:
+
+https://ibmi-oss-docs.readthedocs.io/en/latest/troubleshooting/SETTING_PATH.html
+
 
 
 1. Open the the source **msProduct.rpgle** by double clicking the name in the VSCode "Explorer" window.

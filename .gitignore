@@ -1,0 +1,9 @@
+﻿*.DS_Store
+*.fuse*
+error.txt
+*.bin
+*.ipch
+**/githash.c
+/headers/qoar/*
+/testout/*
+/release/release.savf

@@ -1,7 +1,7 @@
 **free
 ctl-opt copyright('System & Method (C), 2025');
 ctl-opt decEdit('0,') datEdit(*YMD.) main(main); 
-ctl-opt bndDir('NOXDB':'ICEUTILITY':'QC2LE');
+ctl-opt bndDir('NOXDB':'ICEUTILITY');
 
 // -----------------------------------------------------------------------------
 // Service . . . : Get rows from a table
@@ -31,8 +31,8 @@ dcl-proc main;
 	SetContentType('application/json; charset=utf-8');
 
     pResponse = json_sqlResultSet('-
-		select *         -
-		from icproduct    -
+		select *                   -
+		from corpdata.employee     -
 	');
 
 	responseWriteJson(pResponse);

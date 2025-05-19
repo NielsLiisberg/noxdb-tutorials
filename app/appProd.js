@@ -9,13 +9,13 @@
 		"Mvvm.crud.view.Grid"
 	],
 	cfg: {
-		title: "Employees",
+		title: "Microservice Demo",
 		router: "/router",
 		routes: {
-			meta     : 'employee/getMetaData',
- 			getRows  : 'employee/getRows',
-			delete   : 'employee/delete',
-			update   : 'employee/update'
+			meta     : 'MSproduct/getMetaData',
+ 			getRows  : 'MSproduct/getRows',
+			delete   : 'MSproduct/delete',
+			update   : 'MSproduct/update'
 		}
 	},
 	viewport: null,
