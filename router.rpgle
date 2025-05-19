@@ -3,24 +3,24 @@ ctl-opt copyright('System & Method (C), 2025');
 ctl-opt decEdit('0,') datEdit(*YMD.) main(main); 
 ctl-opt bndDir('NOXDB':'ICEUTILITY':'QC2LE');
 
-/* -----------------------------------------------------------------------------
-   Service . . . : microservice router
-   Author  . . . : Niels Liisberg 
-   Company . . . : System & Method A/S
-  
-   CRTICEPGM STMF('/prj/noxdb-tutorial/router.rpgle') SVRID(NOXDBTUT)
-
-
-   By     Date       PTF     Description
-   ------ ---------- ------- ---------------------------------------------------
-   NLI    10.05.2025         New program
-   ----------------------------------------------------------------------------- */
+// -----------------------------------------------------------------------------
+// Service . . . : microservice router
+// Author  . . . : Niels Liisberg 
+// Company . . . : System & Method A/S
+//   
+// CRTICEPGM STMF('/prj/noxdb-tutorials/router.rpgle') SVRID(NOXDBTUT)
+// 
+// 
+// By     Date       PTF     Description
+// ------ ---------- ------- ---------------------------------------------------
+// NLI    10.05.2025         New program
+// ----------------------------------------------------------------------------- 
  /include qrpgleref,jsonparser
  /include qrpgleref,iceutility
  
-// --------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // Main line:
-// --------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 dcl-proc main;
 
 	dcl-s pPayload      pointer;
@@ -41,9 +41,9 @@ dcl-proc main;
     json_delete(pPayload);
 
 end-proc;
-/* -------------------------------------------------------------------- *\ 
-   	run a a microservice call
-\* -------------------------------------------------------------------- */
+// -----------------------------------------------------------------------------
+// Run a a microservice call
+// -----------------------------------------------------------------------------
 dcl-proc runService export;	
 
 	dcl-pi *n pointer;
@@ -63,7 +63,6 @@ dcl-proc runService export;
 	dcl-s errPgm   		char(64);
 	dcl-s errList 		char(4096);
     dcl-s urlParms 		int(10);
-
 
     url = strUpper(getServerVar('REQUEST_FULL_PATH'));
     urlParms = words(url:'/');
@@ -96,9 +95,9 @@ dcl-proc runService export;
 	return pResponse; 
 
 end-proc;
-/* -------------------------------------------------------------------- *\  
-   get data form request
-\* -------------------------------------------------------------------- */
+// -----------------------------------------------------------------------------
+// Get data form request
+// -----------------------------------------------------------------------------
 dcl-proc unpackParms;
 
 	dcl-pi *n pointer;
@@ -136,9 +135,9 @@ dcl-proc unpackParms;
 
 
 end-proc;
-/* -------------------------------------------------------------------- *\ 
-   JSON error monitor 
-\* -------------------------------------------------------------------- */
+// -----------------------------------------------------------------------------
+// JSON error monitor 
+// -----------------------------------------------------------------------------
 dcl-proc FormatError export;
 
 	dcl-pi *n pointer;
@@ -162,9 +161,9 @@ dcl-proc FormatError export;
 
 
 end-proc;
-/* -------------------------------------------------------------------- *\ 
-   JSON error monitor 
-\* -------------------------------------------------------------------- */
+// -----------------------------------------------------------------------------
+// return success object
+// -----------------------------------------------------------------------------
 dcl-proc successTrue export;
 
 	dcl-pi *n pointer;

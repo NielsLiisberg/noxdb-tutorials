@@ -71,8 +71,12 @@ You will see the tutorials server running in the noxDb subsystem. Now we need to
 
 ```
 CRTICEPGM STMF('/prj/noxDb-tutorials/router.rpgle') SVRID(tutorials)
-CRTICEPGM STMF('/prj/noxDb-tutorials/msProduct.rpgle') SVRID(tutorials)
+CRTICEPGM STMF('/prj/noxDb-tutorials/employee.rpgle') SVRID(tutorials)
 ```
+
+# Build the sample database.
+In the tutorials folder you will find a file called **/corpdata.sql**. This is a SQL script that will create the database and the tables used in the tutorials.
+You can run the script from ACS or from the command line.
 
 # Run the first sample
 Now it is time to test the sample:
@@ -105,7 +109,7 @@ In the tutorials above is as close as you can get with RPG to the Microservice a
 
 The "router" program is always called if the URL begins with "router". It is a regex set in the webconfig.xml. The router parses the URL, parse the input JSON and call the required service. Finally the router serializes the object graph into JSON for the HTTP client.
 
-Take a look at "router.rpgle" and "msProduct.rpgle" - they carry the whole secret!
+Take a look at "router.rpgle" and "employee.rpgle" - they carry the whole secret!
 
 
 # Consuming Services
@@ -138,13 +142,13 @@ https://ibmi-oss-docs.readthedocs.io/en/latest/troubleshooting/SETTING_PATH.html
 
 
 
-1. Open the the source **msProduct.rpgle** by double clicking the name in the VSCode "Explorer" window.
-2. The source for **msProduct.rpgle**  will now appear in editor window.
+1. Open the the source **employee.rpgle** by double clicking the name in the VSCode "Explorer" window.
+2. The source for **employee.rpgle**  will now appear in editor window.
 3. If you press: Build. That is ```CTRL-b (win)``` OR ```Command-B (mac)```  OR click ```View->Command Palette->Build->Build: Run Build Task``` then the *noxDb build system* kicks in.
 4. Now select the ```noxDb Compile From IFS to application library``` will appear. Select that.
 5. In the status bar ( the bottom left of the VSCode screen) You can see The number of **Warning, Info and Errors** in the code.
 6. Clicking  **Warning, Info and Errors** will bring up the *"PROBLEMS"* window.
-7. You will see the ```msProduct.rpgle" / "OK compile of /prj/noxDb-tutorials/msProduct.rpgle for server tutorials``` with a blue info icon to the left.
+7. You will see the ```employee.rpgle" / "OK compile of /prj/noxDb-tutorials/employee.rpgle for server NOXDBTUT``` with a blue info icon to the left.
 8. If not... Click on the error icon and it will bring you to the *"PROBLEM"* in the code. It will place the cursor on the line with error and show the compiler error associated with that line.
 9. Fix the error - and press <CTRL-b> for build again. That is step 3.
 10. Not errors? Great !! Click on the search icon in the browser application you already have running at [http://MY_IBM_I:60666](http://MY_IBM_I:60666) 
@@ -158,6 +162,11 @@ No! magic perhaps, but it actually the noxDb Just In Time (JIT) compiler that be
 Please fell free to open and edit the **router.rpgle**. This is an esential part of microservices.   
 
 Perhaps it is time to look at the documentation. The admin-server also provides that: [http://MY_IBM_I:7000](http://MY_IBM_I:7000)  or skip to the section [Run the first sample](#Run-the-first-sample) that covers the above in more details.
+
+# The noxDb framework - step by step
+The noxDb framework is a powerful tool for building RPG applications. It is designed to be easy to use and flexible. The framework is built on top of the ILE RPG language and provides a set of tools and libraries that make it easy to build web applications.
+
+Now leta go thrugh each tutorial step by step.
 
 
 

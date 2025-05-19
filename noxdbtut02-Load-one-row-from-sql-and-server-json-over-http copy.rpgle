@@ -8,10 +8,10 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 // Author  . . . : Niels Liisberg 
 // Company . . . : System & Method A/S
 // 
-// CRTICEPGM STMF('/prj/noxdb-tutorial/noxdbtut02.rpgle') SVRID(NOXDBTUT)
+// CRTICEPGM STMF('/prj/noxdb-tutorials/noxdbtut02.rpgle') SVRID(NOXDBTUT)
 // 
 // run:
-// http://my_ibm_i:60666/noxdbtut02?prodKey=110
+// http://my_ibm_i:60666/noxdbtut02?employeeNumber=0001000 
 // 
 // 
 // By     Date       PTF     Description
@@ -23,21 +23,22 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
  
 // ----------------------------------------------------------------------------- 
 // Main line:
+// Note: the injection protection with strQuot() is needed here,
 // ----------------------------------------------------------------------------- 
 dcl-proc main;
 
-	dcl-s pResponse		pointer;		
-	dcl-s prodKey     int(10);
+	dcl-s pResponse		  pointer;		
+	dcl-s employeeNumber  varchar(6);
   
 	SetContentType('application/json; charset=utf-8');
 
-  prodKey = reqNum('prodKey');
+	employeeNumber = reqStr('employeeNumber');
 
-  pResponse = json_sqlResultSet('-
-		select *         -
-		from icproduct    -
-    where prodKey = ' + %char(prodKey) 
-  );
+	pResponse = json_sqlResultSet('-
+		select *                   -
+		from corpdata.employee     -
+		where empno = ' + strQuot(employeeNumber) 
+	);
 
 	responseWriteJson(pResponse);
 	json_delete(pResponse);

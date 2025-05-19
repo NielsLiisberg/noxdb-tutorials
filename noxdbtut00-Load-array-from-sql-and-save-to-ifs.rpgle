@@ -1,17 +1,16 @@
 **free
 ctl-opt copyright('System & Method (C), 2025');
 ctl-opt decEdit('0,') datEdit(*YMD.) main(main); 
-ctl-opt bndDir('NOXDB':'ICEUTILITY');
+ctl-opt bndDir('NOXDB');
 
 // -----------------------------------------------------------------------------
 // Service . . . : Get rows from a table
 // Author  . . . : Niels Liisberg 
 // Company . . . : System & Method A/S
 //  
-// CRTICEPGM STMF('/prj/noxdb-tutorial/noxdbtut01.rpgle') SVRID(NOXDBTUT)
+// CRTICEPGM STMF('/prj/noxdb-tutorials/noxdbtut00.rpgle') SVRID(NOXDBTUT)
 //
 // Run:
-// http://my_ibm_i:60666/noxdbtut01
 //
 //
 // By     Date       PTF     Description
@@ -19,23 +18,22 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 // NLI    10.05.2025         New program
 // ----------------------------------------------------------------------------- 
  /include qrpgleref,jsonparser
- /include qrpgleref,iceutility
  
 // ----------------------------------------------------------------------------- 
 // Main line:
+// STRDBG PGM(NOXDBTUT/NOXDBTUT00) UPDPROD(*YES)             
 // ----------------------------------------------------------------------------- 
 dcl-proc main;
 
 	dcl-s pResponse		pointer;		
 	
-	SetContentType('application/json; charset=utf-8');
-
     pResponse = json_sqlResultSet('-
 		select *                   -
 		from corpdata.employee     -
 	');
 
-	responseWriteJson(pResponse);
+	json_WriteJsonStmf(pResponse:'/prj/noxdb-tutorials/testout/employee.json':1208);
+
 	json_delete(pResponse);
 
 
