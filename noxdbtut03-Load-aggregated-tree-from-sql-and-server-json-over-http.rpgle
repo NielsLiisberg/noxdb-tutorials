@@ -49,11 +49,10 @@ dcl-proc empProjSql;
 
 	dcl-pi *N varchar(5000);
 		employeeNumber varchar(6) value;
-	
 	end-pi; 
 
-	return `select                                
-    json_array(                          
+	return 
+    `select json_array(
         (
             select json_object(
                 'employeeNumber' : int(empno),
@@ -91,8 +90,9 @@ dcl-proc empProjSql;
                 )
             )
             from corpdata.employee
-			where empno = ${strQuot(employeeNumber)}
+            where empno = ${strQuot(employeeNumber)}
         ) format json                       
-	) rows from sysibm.sysdummy1`;
+	) rows 
+    from sysibm.sysdummy1`;
 end-proc;
 

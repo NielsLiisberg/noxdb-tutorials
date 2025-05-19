@@ -11,7 +11,7 @@ ctl-opt bndDir('NOXDB');
 // CRTICEPGM STMF('/prj/noxdb-tutorials/noxdbtut00.rpgle') SVRID(NOXDBTUT)
 //
 // Run:
-//
+// call noxdbtut/noxdbtut00
 //
 // By     Date       PTF     Description
 // ------ ---------- ------- ---------------------------------------------------
