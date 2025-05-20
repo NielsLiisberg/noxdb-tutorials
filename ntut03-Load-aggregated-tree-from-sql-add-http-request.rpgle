@@ -8,10 +8,10 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 // Author  . . . : Niels Liisberg 
 // Company . . . : System & Method A/S
 // 
-// CRTICEPGM STMF('/prj/noxdb-tutorials/noxdbtut03.rpgle') SVRID(NOXDBTUT)
+// CRTICEPGM STMF('/prj/noxdb-tutorials/ntut03.rpgle') SVRID(NOXDBTUT)
 // 
 // run:
-// http://my_ibm_i:60666/noxdbtut03?employeeNumber=0001000 
+// http://my_ibm_i:60666/ntut03?employeeNumber=0001000 
 // 
 // 
 // By     Date       PTF     Description
@@ -23,7 +23,7 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
  
 // ----------------------------------------------------------------------------- 
 // Main line:
-// http://my_ibm_i:60666/noxdbtut03?employeeNumber=000270
+// http://my_ibm_i:60666/ntut03?employeeNumber=000270
 // Note: the injection protection with strQuot() is needed here,
 // ----------------------------------------------------------------------------- 
 dcl-proc main;

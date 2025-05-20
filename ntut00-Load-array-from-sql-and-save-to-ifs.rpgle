@@ -8,10 +8,10 @@ ctl-opt bndDir('NOXDB');
 // Author  . . . : Niels Liisberg 
 // Company . . . : System & Method A/S
 //  
-// CRTICEPGM STMF('/prj/noxdb-tutorials/noxdbtut00.rpgle') SVRID(NOXDBTUT)
+// CRTICEPGM STMF('/prj/noxdb-tutorials/ntut00.rpgle') SVRID(NOXDBTUT)
 //
 // Run:
-// call noxdbtut/noxdbtut00
+// call noxdbtut/ntut00
 //
 // By     Date       PTF     Description
 // ------ ---------- ------- ---------------------------------------------------
@@ -21,7 +21,7 @@ ctl-opt bndDir('NOXDB');
  
 // ----------------------------------------------------------------------------- 
 // Main line:
-// STRDBG PGM(NOXDBTUT/NOXDBTUT00) UPDPROD(*YES)             
+// STRDBG PGM(NOXDBTUT/ntut00) UPDPROD(*YES)             
 // ----------------------------------------------------------------------------- 
 dcl-proc main;
 

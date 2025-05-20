@@ -8,10 +8,10 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 // Author  . . . : Niels Liisberg 
 // Company . . . : System & Method A/S
 //  
-// CRTICEPGM STMF('/prj/noxdb-tutorials/noxdbtut01.rpgle') SVRID(NOXDBTUT)
+// CRTICEPGM STMF('/prj/noxdb-tutorials/ntut01.rpgle') SVRID(NOXDBTUT)
 //
 // Run:
-// http://my_ibm_i:60666/noxdbtut01
+// http://my_ibm_i:60666/ntut01
 //
 //
 // By     Date       PTF     Description
