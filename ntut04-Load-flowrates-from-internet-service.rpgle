@@ -4,14 +4,14 @@ ctl-opt decEdit('0,') datEdit(*YMD.) main(main);
 ctl-opt bndDir('NOXDB':'ICEUTILITY');
 
 // -----------------------------------------------------------------------------
-// Service . . . : Get rows from a table
+// Service . . . : Get exchangereate from flowrates
 // Author  . . . : Niels Liisberg 
 // Company . . . : System & Method A/S
 // 
 // CRTICEPGM STMF('/prj/noxdb-tutorials/ntut04.rpgle') SVRID(NOXDBTUT)
 // 
 // run:
-// http://my_ibm_i:60666/ntut04?employeeNumber=0001000 
+// http://my_ibm_i:60666/ntut04
 // 
 // 
 // By     Date       PTF     Description

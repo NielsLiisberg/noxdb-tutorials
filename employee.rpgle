@@ -16,7 +16,7 @@ ctl-opt bndDir('NOXDB' );
 /include qrpgleref,iceUtility
 
 // ----------------------------------------------------------------------------- 
-//   	return a resulset from the SQL select 
+//  return a resulset from the SQL select 
 //
 //	use the the IceBreak sandbox at "MY_IBM_I"
 //	or configure your host table to have MY_IBM_I
@@ -28,7 +28,7 @@ ctl-opt bndDir('NOXDB' );
 //	// Rest style
 //	http://MY_IBM_I:60666/router/employee/getRows?payload={"search" : "brown"}
 //
-//
+// ----------------------------------------------------------------------------- 
 dcl-proc getRows export;
 
 	dcl-pi *n pointer;
@@ -55,10 +55,10 @@ dcl-proc getRows export;
 	addOrderByClause ( sqlStmt : pInput);
 
 	pResultSet = json_sqlResultSet   (
-		sqlStmt
+		  sqlStmt
 		: start 
 		: limit
-		: JSON_META + JSON_TOTALROWS
+		: JSON_META + JSON_TOTALROWS + JSON_GRACEFUL_ERROR
 	);
 
 
@@ -237,6 +237,14 @@ dcl-proc getMetadata export;
 		select * - 
 		from corpdata.employee -
 	');
+	
+	if pMeta = *NULL;	
+		pMeta = json_newObject();	
+		json_setBool (pMeta : 'success' : *OFF);
+		json_setStr  (pMeta : 'msg'    : json_Message(*NULL));
+		return pMeta;
+	endif;
+	
 
 	// Add which column is the primary key
 	pKey = json_locate (pMeta : '[name=empno]'); 

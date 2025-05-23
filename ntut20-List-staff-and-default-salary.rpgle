@@ -42,9 +42,9 @@ dcl-proc main;
     dow json_ForEach(staffList);
         calculateDefaultSalary (staffList.this);
     enddo;
-	
 
 	responseWriteJson(pStaff);
+
 on-exit;
 	json_delete(pStaff);
 
@@ -66,8 +66,6 @@ dcl-proc calculateDefaultSalary;
 	dcl-s pCalculatorOutput pointer ;	
 
 	pCalculatorInput = json_newObject();
-	// json_setNum(pCalculatorInput: 'years': json_getNum(pStaff: 'years'));	
-	// json_setStr(pCalculatorInput: 'job'  : json_getStr(pStaff: 'job'));	
 	json_copyValue (pCalculatorInput: 'years' : pStaff: 'years');	
 	json_copyValue (pCalculatorInput: 'job'   : pStaff: 'job'  );	
 
@@ -78,6 +76,7 @@ dcl-proc calculateDefaultSalary;
 	
 	// Set the default salary to 0.0
 	json_setNum(pStaff: 'defaultSalary': defaultSalary);
+	
 on-exit;
 	json_delete(pCalculatorOutput);
 	json_delete(pCalculatorInput);
