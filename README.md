@@ -64,18 +64,28 @@ As you can see - you have to ajust your path to use yum, git and other opens sou
 Go back to a 5250 prompt
 ```
 GO ICEBREAK 
+```
+```
 CALL QCMD
+```
+```
 ADDICESVR SVRID(noxdbtut) TEXT('noxDb tutorials') 
     SVRPORT(60666) HTTPPATH('/prj/noxDb-tutorials') 
     WWWDFTDOC('default.html') DISPTHRMTH(*MULTITHREAD)         
+```
+```
 STRICESVR noxdbtut
+```
+```
 WRKICESBS 
 ```
 You will see the tutorials server running in the noxDb subsystem. Now we need to compile some of the tutorials ( still in the 5250 with noxDb on the library list):
 
 ```
-CRTICEPGM STMF('/prj/noxDb-tutorials/router.rpgle') SVRID(tutorials)
-CRTICEPGM STMF('/prj/noxDb-tutorials/employee.rpgle') SVRID(tutorials)
+CRTICEPGM STMF('/prj/noxDb-tutorials/router.rpgle') SVRID(NOXDBTUT)
+```
+```
+CRTICEPGM STMF('/prj/noxDb-tutorials/employee.rpgle') SVRID(NOXDBTUT)
 ```
 
 # Build the sample database.
