@@ -28,7 +28,7 @@ dcl-proc main;
 
 	dcl-s pResponse		pointer;		
 	
-	SetContentType('application/json; charset=utf-8');
+	setContentType('application/json; charset=utf-8');
 
     pResponse = json_sqlResultSet('-
 		select *                   -

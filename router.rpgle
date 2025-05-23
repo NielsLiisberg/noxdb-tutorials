@@ -107,7 +107,7 @@ dcl-proc unpackParms;
 	dcl-s msg     		varchar(4096);
 
 
-	SetContentType('application/json; charset=utf-8');
+	setContentType('application/json; charset=utf-8');
 	SetEncodingType('*JSON');
 	json_sqlSetOptions('{'             + // use dfault connection
 		'upperCaseColname: false,   '  + // set option for uppcase of columns names

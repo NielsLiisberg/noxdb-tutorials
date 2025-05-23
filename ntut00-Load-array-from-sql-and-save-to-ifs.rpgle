@@ -33,7 +33,6 @@ dcl-proc main;
 	');
 
 	json_WriteJsonStmf(pResponse:'/prj/noxdb-tutorials/testout/employee.json':1208);
-	json_writeJsonStmf(
 
 	json_delete(pResponse);
 

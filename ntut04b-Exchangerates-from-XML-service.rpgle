@@ -27,7 +27,8 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 // http://my_ibm_i:60666/ntut04b
 //
 //
-// make a httprequest to the  Danish National Bank        
+// make a httprequest to the  Danish National Bank at this URL:
+// https://www.nationalbanken.dk/api/currencyratesxml          
 // and get the USD rate 
 // ----------------------------------------------------------------------------- 
 dcl-proc main;
@@ -41,7 +42,7 @@ dcl-proc main;
     dcl-s pRateEUR      pointer;
     dcl-s pRates        pointer;    
 		
-	SetContentType('application/json; charset=utf-8');
+	setContentType('application/json; charset=utf-8');
 
     url = 'https://www.nationalbanken.dk/api/currencyratesxml';
 

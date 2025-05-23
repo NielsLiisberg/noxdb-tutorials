@@ -36,7 +36,7 @@ dcl-proc main;
 	dcl-s  pEmployees	    pointer;	
 	dcl-DS employeeList     likeds(json_iterator);
 		
-	SetContentType('application/json; charset=utf-8');
+	setContentType('application/json; charset=utf-8');
 
 	pEmployees = getEmplyeesAndProjects();
 

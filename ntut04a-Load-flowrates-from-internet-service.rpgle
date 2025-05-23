@@ -8,10 +8,10 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 // Author  . . . : Niels Liisberg 
 // Company . . . : System & Method A/S
 // 
-// CRTICEPGM STMF('/prj/noxdb-tutorials/ntut04.rpgle') SVRID(NOXDBTUT)
+// CRTICEPGM STMF('/prj/noxdb-tutorials/ntut04a.rpgle') SVRID(NOXDBTUT)
 // 
 // run:
-// http://my_ibm_i:60666/ntut04
+// http://my_ibm_i:60666/ntut04a
 // 
 // 
 // By     Date       PTF     Description
@@ -23,10 +23,11 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
  
 // ----------------------------------------------------------------------------- 
 // Main line:
-// http://my_ibm_i:60666/ntut04
+// http://my_ibm_i:60666/ntut04a
 //
 //
-// make a httprequest at the floatrates service        
+// make a httprequest at the floatrates service at this URL
+// http://www.floatrates.com/daily/usd.json       
 // and get the USD rate 
 // ----------------------------------------------------------------------------- 
 dcl-proc main;
@@ -35,21 +36,27 @@ dcl-proc main;
     dcl-s pFlorate      pointer;
     dcl-s rate          packed(23:19);
 		
-	SetContentType('application/json; charset=utf-8');
+	setContentType('application/json; charset=utf-8');
 
     url = 'http://www.floatrates.com/daily/usd.json';
 
     // Use YUM to install curl, which is the tool used by httpRequest
     pFlorate = json_httpRequest (url);
     responseWriteJson(pFlorate);
+    
+    // Write to joblog:
+    json_WriteJsonStmf(pResponse:'/prj/noxdb-tutorials/testout/employee.json':1208);
+
+
 	
 	// In the next example we will use the rate from the noxDb graph..
 	// for now we just put it in the console 
     rate = json_getNum (pFlorate: 'eur.rate' );
     consoleLog(%char(rate));
     json_joblog('EUR rate: ' + %char(rate));
-	json_delete(pFlorate);
 
+on-exit;
+	json_delete(pFlorate);
 
 end-proc;
 

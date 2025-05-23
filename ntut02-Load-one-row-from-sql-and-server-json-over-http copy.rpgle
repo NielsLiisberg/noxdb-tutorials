@@ -30,7 +30,7 @@ dcl-proc main;
 	dcl-s pResponse		  pointer;		
 	dcl-s employeeNumber  varchar(6);
   
-	SetContentType('application/json; charset=utf-8');
+	setContentType('application/json; charset=utf-8');
 
 	employeeNumber = reqStr('employeeNumber');
 

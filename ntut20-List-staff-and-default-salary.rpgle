@@ -29,7 +29,7 @@ dcl-proc main;
 	dcl-s  pStaff		 pointer;		
 	dcl-DS staffList     likeds(json_iterator);
 	
-	SetContentType('application/json; charset=utf-8');
+	setContentType('application/json; charset=utf-8');
 
     pStaff = json_sqlResultSet('-
 		select *                -
@@ -76,7 +76,7 @@ dcl-proc calculateDefaultSalary;
 	
 	// Set the default salary to 0.0
 	json_setNum(pStaff: 'defaultSalary': defaultSalary);
-	
+
 on-exit;
 	json_delete(pCalculatorOutput);
 	json_delete(pCalculatorInput);

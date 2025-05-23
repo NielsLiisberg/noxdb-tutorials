@@ -40,7 +40,7 @@ dcl-proc main;
 	dcl-s count       int(5);
 	dcl-s pOutputRows pointer;
     
-	SetContentType('application/json; charset=utf-8');
+	setContentType('application/json; charset=utf-8');
 
 	// Load an array with data structures;
 	exampleDataInto (employee : count);
