@@ -27,16 +27,20 @@ ___
 
 Before you can clone this git repo - you first need to have git on your IBM i:
 
+So first !! You need to ensure that the **ssh** daemon is running on your IBM i. So from a IBM i menu prompt start the SSH daemon:
+
+```
+===> STRTCPSVR *SSHD
+```
+
+... Then you can install **git**
+  
 1) Open ACS and click on "Tools"
 2) Click on "Open Source Package Management"
 3) Open the "Available packages" tab
 4) Click "git" and "Install"
 
-You need to ensure that the ssh daemon is running on your IBM i. So from a IBM i menu prompt start the SSH daemon:
 
-```
-===> STRTCPSVR *SSHD
-```
 
 Now back to your ACS:
 
@@ -52,7 +56,7 @@ yum install git
 ```
 And now in the same ssh session - clone the tutorials repo 
 ```
-cd /www
+cd /prj
 git -c http.sslVerify=false clone https://github.com/NielsLiisberg/noxDb-tutorials.git
 ```
 As you can see - you have to ajust your path to use yum, git and other opens source tooling  
