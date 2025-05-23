@@ -20,7 +20,8 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 // ----------------------------------------------------------------------------- 
  /include qrpgleref,jsonparser
  /include qrpgleref,iceutility 
- 
+
+// The template for the employee structure		 
 dcl-ds employee_t    extname('CORPDATA/EMPLOYEE') qualified template end-ds;  	 
  
 // ----------------------------------------------------------------------------- 
@@ -28,15 +29,17 @@ dcl-ds employee_t    extname('CORPDATA/EMPLOYEE') qualified template end-ds;
 // http://my_ibm_i:60666/ntut10
 // 
 // Demonstrates: 
+// exampleDataInto
 // 1) noxDb - load sql resultset into a graph 
 // 2) store the noxDb graph into an array of structures - using data-into  
-//  
+// 
+// exampleDataGen:
 // 3) load a new noxDb graph from an array of structures - using data-gen
 // 4) serialize the graph over HTTP to the client
 // ----------------------------------------------------------------------------- 
 dcl-proc main;
 
-	dcl-ds employee   likeds(employee_t) inz dim(100);
+	dcl-ds employee   likeds(employee_t) inz dim(100) ;
 	dcl-s count       int(5);
 	dcl-s pOutputRows pointer;
     
@@ -48,6 +51,8 @@ dcl-proc main;
 	// Respond an array with data structures;
 	pOutputRows = exampleDataGen (employee : count);
 	responseWriteJson(pOutputRows);
+
+on-exit;
 	json_delete(pOutputRows);
 
 end-proc;

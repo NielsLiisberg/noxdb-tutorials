@@ -19,13 +19,14 @@ ctl-opt bndDir('NOXDB');
 // ----------------------------------------------------------------------------- 
  /include qrpgleref,jsonparser
  
-// ----------------------------------------------------------------------------- 
+/// ----------------------------------------------------------------------------- 
 // Main line:
 // STRDBG PGM(NOXDBTUT/ntut00) UPDPROD(*YES)             
 // ----------------------------------------------------------------------------- 
 dcl-proc main;
 
-	dcl-s pResponse		pointer;		
+	dcl-s pResponse		pointer;	
+	dcl-s f int(10); 	
 	
     pResponse = json_sqlResultSet('-
 		select *                   -

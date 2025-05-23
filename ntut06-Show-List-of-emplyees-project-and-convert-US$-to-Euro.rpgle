@@ -92,7 +92,7 @@ dcl-proc getConversionRateUSD2Euro;
     dcl-s pFlorate      pointer;
     dcl-s rate          packed(13:9) static inz(0);
 
-    // already calculate? 
+    // already calculate? use the cached value! note it is delared static     
     if rate <> 0;
         return rate;
     endif;
@@ -113,7 +113,7 @@ end-proc;
 // -----------------------------------------------------------------------------
 dcl-proc getEmplyeesAndProjects;
 
-    dcl-pi getEmplyeesAndProjects pointer;
+    dcl-pi *n pointer;
     end-pi;
 
 	dcl-s pEmployees		  pointer;	
