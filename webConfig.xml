@@ -128,7 +128,7 @@
 		When "strict=true" only applications from this list is served
 		The "routing" tag has higher precedence than "hives"
 		The "pattern" is a regular expression match. 
-		The following matches both "/system/snaponicon"  in any place and "/router/" in the beginning.		
+		The following matches  "/router/" in the beginning.		
 		The match is not case-sensitive by default - but adding "casesensitive=true" changes that  
 		Note: No national characters are supported in the match
 	-->
