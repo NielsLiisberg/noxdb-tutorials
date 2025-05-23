@@ -52,6 +52,13 @@ dcl-proc main;
 
 end-proc;
 // ----------------------------------------------------------------------------- 
+// Now the magic: the pInputRows object graph is send to the mapper
+// Note the second parm of %data controls you mapping - look at:
+// https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_74/rzasd/dataintoopts.htm
+// we set 'allowextra=yes allowmissing=yes' 
+// However; Leave them out if You need a strict mapping
+// The json_DataInto() function will populate the array of structures
+// ----------------------------------------------------------------------------- 
 dcl-proc exampleDataInto;
 
 	dcl-pi *n;
@@ -71,15 +78,13 @@ dcl-proc exampleDataInto;
     // Keep track of number of rows:
     count = json_getLength(pInputRows); 
 
-    // Now the magic: the pInputRows object graph is send to the mapper
-    // Note the second parm of %data controls you mapping - look at:
-    // https://www.ibm.com/support/knowledgecenter/en/ssw_ibm_i_74/rzasd/dataintoopts.htm
-    // we set 'allowextra=yes allowmissing=yes' 
-    // However; Leave them out if You need a strict mapping
     data-into employee %data('':'allowextra=yes allowmissing=yes') %parser(json_DataInto(pInputRows));
     json_delete(pInputRows);
 
 end-proc;
+// ----------------------------------------------------------------------------- 
+// Now the magic back: the pOutputRows pointer is send to the mapper and returns as an object graph
+// the noxDb object graph is generated from the array of structures with the json_DataGen()
 // ----------------------------------------------------------------------------- 
 dcl-proc exampleDataGen;
     
@@ -91,7 +96,6 @@ dcl-proc exampleDataGen;
 	dcl-s pOutputRows pointer;
 	dcl-s dummy       char(1);
 	
-	// Now the magic back: the pOutputRows pointer is send to the mapper and returns as an object graph
     data-gen %subarr(employee : 1: count)  %data(dummy: '') %gen(json_DataGen(pOutputRows));
 	return pOutputRows;
 
