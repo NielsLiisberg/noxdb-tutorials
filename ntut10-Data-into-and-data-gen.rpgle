@@ -36,14 +36,31 @@ dcl-ds employee_t    extname('CORPDATA/EMPLOYEE') qualified template end-ds;
 // ----------------------------------------------------------------------------- 
 dcl-proc main;
 
-	dcl-ds employee   likeds(employee_t) inz dim(100)  ;
-	dcl-s pInputRows  pointer;
-	dcl-s pOutputRows pointer;
-	dcl-s dummy       char(1);
+	dcl-ds employee   likeds(employee_t) inz dim(100);
 	dcl-s count       int(5);
+	dcl-s pOutputRows pointer;
     
 	SetContentType('application/json; charset=utf-8');
-    
+
+	// Load an array with data structures;
+	exampleDataInto (employee : count);
+
+	// Respond an array with data structures;
+	pOutputRows = exampleDataGen (employee : count);
+	responseWriteJson(pOutputRows);
+	json_delete(pOutputRows);
+
+end-proc;
+// ----------------------------------------------------------------------------- 
+dcl-proc exampleDataInto;
+
+	dcl-pi *n;
+		employee    likeds(employee_t) dim(100);
+		count 		int(5);
+	end-pi; 
+
+	dcl-s pInputRows  pointer;
+
     // This is our array of objects:
     pInputRows = json_sqlResultSet(' -
 		select *                -
@@ -61,11 +78,22 @@ dcl-proc main;
     // However; Leave them out if You need a strict mapping
     data-into employee %data('':'allowextra=yes allowmissing=yes') %parser(json_DataInto(pInputRows));
     json_delete(pInputRows);
+
+end-proc;
+// ----------------------------------------------------------------------------- 
+dcl-proc exampleDataGen;
+    
+	dcl-pi *n pointer;
+		employee    likeds(employee_t) dim(100);
+		count 		int(5);
+	end-pi; 
+
+	dcl-s pOutputRows pointer;
+	dcl-s dummy       char(1);
 	
 	// Now the magic back: the pOutputRows pointer is send to the mapper and returns as an object graph
     data-gen %subarr(employee : 1: count)  %data(dummy: '') %gen(json_DataGen(pOutputRows));
-	responseWriteJson(pOutputRows);
-	json_delete(pOutputRows);
+	return pOutputRows;
 
 end-proc;
 
