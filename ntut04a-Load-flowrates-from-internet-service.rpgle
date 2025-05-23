@@ -44,9 +44,8 @@ dcl-proc main;
     pFlorate = json_httpRequest (url);
     responseWriteJson(pFlorate);
     
-    // Write to joblog:
-    json_WriteJsonStmf(pResponse:'/prj/noxdb-tutorials/testout/employee.json':1208);
-
+    // Just serialize the reult
+    json_WriteJsonStmf(pFlorate:'/prj/noxdb-tutorials/testout/floarates.json':1208);
 
 	
 	// In the next example we will use the rate from the noxDb graph..

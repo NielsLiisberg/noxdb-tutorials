@@ -48,6 +48,10 @@ dcl-proc main;
 
     // Use YUM to install curl, which is the tool used by httpRequest
     pNationalBank = xml_httpRequest (url);
+
+    // Just serialize the reult 
+    xml_WriteXmlStmf(pNationalBank:'/prj/noxdb-tutorials/testout/nationalbanken.xml':1208:*ON);
+    
 	
 	// In the next example we will use the rate from the noxDb graph..
     pRateUSD = xml_locate (pNationalBank: 'exchangerates/dailyrates/currency[@code=USD]');
