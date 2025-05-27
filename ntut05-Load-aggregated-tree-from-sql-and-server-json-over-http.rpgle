@@ -60,13 +60,10 @@ dcl-proc convertBonusUsd2Euro;
 
     dcl-s bonus         packed(13:2);    
     dcl-s bonuseuro     packed(13:2);    
-    dcl-s url  	        varchar(1024);
     dcl-s pFlorate      pointer;
     dcl-s rate          packed(13:9);
 
-    url = 'http://www.floatrates.com/daily/usd.json';
-
-    pFlorate = json_httpRequest (url);
+    pFlorate = json_httpRequest ('http://www.floatrates.com/daily/usd.json');
     rate = json_getNum (pFlorate: 'eur.rate' );
 
     bonus = json_getNum (pEmployee: 'bonus' );

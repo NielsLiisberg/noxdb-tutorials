@@ -32,7 +32,6 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 // ----------------------------------------------------------------------------- 
 dcl-proc main;
 
-    dcl-s url  	        varchar(1024);
     dcl-s pFlorate      pointer;
     dcl-s rate          packed(23:19);
 		

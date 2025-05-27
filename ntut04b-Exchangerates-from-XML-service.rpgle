@@ -33,7 +33,6 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 // ----------------------------------------------------------------------------- 
 dcl-proc main;
 
-    dcl-s url  	        varchar(1024);
     dcl-s pNationalBank pointer;
     dcl-s rateUSD       packed(23:19);
     dcl-s rateEUR       packed(23:19);
@@ -44,10 +43,9 @@ dcl-proc main;
 		
 	setContentType('application/json; charset=utf-8');
 
-    url = 'https://www.nationalbanken.dk/api/currencyratesxml';
 
     // Use YUM to install curl, which is the tool used by httpRequest
-    pNationalBank = xml_httpRequest (url);
+    pNationalBank = xml_httpRequest ('https://www.nationalbanken.dk/api/currencyratesxml');
 
     // Just serialize the reult 
     xml_WriteXmlStmf(pNationalBank:'/prj/noxdb-tutorials/testout/nationalbanken.xml':1208:*ON);

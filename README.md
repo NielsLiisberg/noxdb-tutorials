@@ -4,7 +4,7 @@ RPG tutorials using noxDB
 noxDb is a powerful JSON,XML,SQL and program/serviceprogram framework for ILE on the IBM i™. noxDb makes it easy to manipulate and construct complex and dynamic data structures with a simple set of procedure calls from a RPG/ILE program.
 
 
-![noxdb](resources/noxdb.jpg "noxDb")
+![noxdb](resources/noxDb.jpg "noxDb")
 
 
 noxDb runs natively on IBM i™ in the ILE environment - no PASE or any other moving parts.
