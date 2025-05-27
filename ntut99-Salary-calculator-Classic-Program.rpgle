@@ -2,7 +2,6 @@
 ctl-opt pgminfo(*PCML:*MODULE);
 ctl-opt copyright('System & Method (C), 2025');
 ctl-opt decEdit('0.') datEdit(*YMD.); 
-ctl-opt bndDir('NOXDB':'ICEUTILITY');
 ctl-opt debug(*yes);
 
 // -----------------------------------------------------------------------------

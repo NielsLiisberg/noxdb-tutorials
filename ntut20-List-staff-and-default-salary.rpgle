@@ -19,7 +19,6 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 // NLI    10.05.2025         New program
 // ----------------------------------------------------------------------------- 
  /include qrpgleref,jsonparser
- /include qrpgleref,iceutility
  
 // ----------------------------------------------------------------------------- 
 // Main line:
@@ -74,7 +73,7 @@ dcl-proc calculateDefaultSalary;
 	// Get the default salary from the staff object
 	defaultSalary = json_getNum(pCalculatorOutput: 'salary');
 	
-	// Set the default salary to 0.0
+	// Set the default salary
 	json_setNum(pStaff: 'defaultSalary': defaultSalary);
 
 on-exit;
