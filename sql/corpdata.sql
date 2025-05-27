@@ -1,5 +1,5 @@
 ﻿-- First build the sample schema:
-
+drop schema if exists corpdata;
 call qsys.create_sql_sample('CORPDATA');
 
 -- We can then play with these;
@@ -22,4 +22,23 @@ select * from corpdata.projact;
 select * from corpdata.sales;
 select * from corpdata.staff 
 order by 4, 5;
+
+
+Label on column corpdata.employee (
+    empno     is 'Employee            ID',
+    firstnme  is 'First               Name',
+    midinit   is 'Initial',
+    lastname  is 'Last                Name',
+    workdept  is 'Work                Department',
+    edlevel   is 'Education           Level',
+    sex       is 'Sex',
+    birthdate is 'Birth               Date',
+    phoneno   is 'Phone               Number',
+    hiredate  is 'Hire                Date',
+    job       is 'Job                 Title',
+    salary    is 'Salary',
+    bonus     is 'Bonus',
+    comm      is 'Commission'
+)
+
 
