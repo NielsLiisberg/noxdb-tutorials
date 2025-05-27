@@ -38,10 +38,8 @@ dcl-proc main;
 		
 	setContentType('application/json; charset=utf-8');
 
-    url = 'http://www.floatrates.com/daily/usd.json';
-
     // Use YUM to install curl, which is the tool used by httpRequest
-    pFlorate = json_httpRequest (url);
+    pFlorate = json_httpRequest ('http://www.floatrates.com/daily/usd.json');
     responseWriteJson(pFlorate);
     
     // Just serialize the reult

@@ -19,7 +19,6 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 // NLI    10.05.2025         New program
 // ----------------------------------------------------------------------------- 
  /include qrpgleref,jsonparser
- /include qrpgleref,iceutility
  
 // ----------------------------------------------------------------------------- 
 // Main line:
