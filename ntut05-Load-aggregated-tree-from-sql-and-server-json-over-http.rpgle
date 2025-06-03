@@ -4,7 +4,7 @@ ctl-opt decEdit('0,') datEdit(*YMD.) main(main);
 ctl-opt bndDir('NOXDB':'ICEUTILITY');
 
 // -----------------------------------------------------------------------------
-// Service . . . : Get rows from a table
+// Service . . . : Load aggregated tree from sql and server json over http
 // Author  . . . : Niels Liisberg 
 // Company . . . : System & Method A/S
 // 
