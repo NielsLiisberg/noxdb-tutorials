@@ -29,6 +29,11 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 // make a httprequest at the floatrates service at this URL
 // http://www.floatrates.com/daily/usd.json       
 // and get the USD rate 
+//
+// Under the covers noxDb are using cUrl, so you have to installed that first:
+// From the ssh / shell prompt:
+// PATH=/QOpenSys/pkgs/bin:$PATH
+// yum install curl
 // ----------------------------------------------------------------------------- 
 dcl-proc main;
 
