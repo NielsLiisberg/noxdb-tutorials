@@ -1,5 +1,5 @@
 **free
-ctl-opt copyright('System & Method (C), 2025');
+ctl-opt copyright('System & Method (C), 2025-2026');
 ctl-opt decEdit('0,') datEdit(*YMD.) main(main); 
 ctl-opt bndDir('NOXDB':'ICEUTILITY');
 
@@ -16,6 +16,7 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 // 
 // By     Date       PTF     Description
 // ------ ---------- ------- ---------------------------------------------------
+// NLI    12.06.2026         Cleanup for CEC2026
 // NLI    10.05.2025         New program
 // ----------------------------------------------------------------------------- 
  /include qrpgleref,jsonparser
@@ -35,12 +36,14 @@ dcl-proc main;
 	employeeNumber = reqStr('employeeNumber');
 
 	pResponse = json_sqlResultSet('-
-		select *                   -
+	   select *                   -
 		from corpdata.employee     -
 		where empno = ' + strQuot(employeeNumber) 
 	);
 
 	responseWriteJson(pResponse);
+
+on-exit;
 	json_delete(pResponse);
 
 

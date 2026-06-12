@@ -1,5 +1,5 @@
 **free
-ctl-opt copyright('System & Method (C), 2025');
+ctl-opt copyright('System & Method (C), 2025-2026');
 ctl-opt decEdit('0,') datEdit(*YMD.) main(main); 
 ctl-opt bndDir('NOXDB':'ICEUTILITY');
 
@@ -16,6 +16,7 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 // 
 // By     Date       PTF     Description
 // ------ ---------- ------- ---------------------------------------------------
+// NLI    12.06.2026         Cleanup for CEC2026
 // NLI    10.05.2025         New program
 // ----------------------------------------------------------------------------- 
  /include qrpgleref,jsonparser
@@ -34,27 +35,33 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 // From the ssh / shell prompt:
 // PATH=/QOpenSys/pkgs/bin:$PATH
 // yum install curl
+// 
+// note - in the wenconfig.xml I have added the path where to find curl
+//	<envvar>
+//      <var name="PASE_PATH" value="/QOpenSys/pkgs/bin:/QOpenSys/usr/bin:/usr/ccs/bin:/QOpenSys/usr/bin/X11:/usr/sbin:.:/usr/bin"/>
+//	</envvar>
+//
 // ----------------------------------------------------------------------------- 
 dcl-proc main;
 
-    dcl-s pFlorate      pointer;
-    dcl-s rate          packed(23:19);
+   dcl-s pFlorate      pointer;
+   dcl-s rate          packed(23:19);
 		
 	setContentType('application/json; charset=utf-8');
 
-    // Use YUM to install curl, which is the tool used by httpRequest
-    pFlorate = json_httpRequest ('http://www.floatrates.com/daily/usd.json');
-    responseWriteJson(pFlorate);
-    
-    // Just serialize the reult
-    json_WriteJsonStmf(pFlorate:'/prj/noxdb-tutorials/testout/floarates.json':1208);
+   // Use YUM to install curl, which is the tool used by httpRequest
+   pFlorate = json_httpRequest ('http://www.floatrates.com/daily/usd.json');
+   responseWriteJson(pFlorate);
+   
+   // Just serialize the reult
+   json_WriteJsonStmf(pFlorate:'/prj/noxdb-tutorials/testout/floarates.json':1208);
 
-	
-	// In the next example we will use the rate from the noxDb graph..
-	// for now we just put it in the console 
-    rate = json_getNum (pFlorate: 'eur.rate' );
-    consoleLog(%char(rate));
-    json_joblog('EUR rate: ' + %char(rate));
+
+   // In the next example we will use the rate from the noxDb graph..
+   // for now we just put it in the console 
+   rate = json_getNum (pFlorate: 'eur.rate' );
+   consoleLog(%char(rate));
+   json_joblog('EUR rate: ' + %char(rate));
 
 on-exit;
 	json_delete(pFlorate);

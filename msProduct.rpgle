@@ -1,35 +1,36 @@
-<%@ language="RPGLE" pgmtype="srvpgm" pgmopt="export(*ALL)" %>
-<%
-ctl-opt copyright('System & Method (C), 2019-2025');
+**free
+//<%@ language="RPGLE" pgmtype="srvpgm" pgmopt="export(*ALL)" %>
+ctl-opt copyright('System & Method (C), 2029-2026');
 ctl-opt decEdit('0,') datEdit(*YMD.) nomain; 
 ctl-opt bndDir('NOXDB' );
-/* -----------------------------------------------------------------------------
-
-  CRTICEPGM STMF('/prj/noxdb-tutorials/msProduct.rpgle') SVRID(NOXDBTUT)
-
-
-  By     Date       PTF     Description
-  ------ ---------- ------- ---------------------------------------------------
-  NLI    16.05.2025         New program
-  ----------------------------------------------------------------------------- */
+// -----------------------------------------------------------------------------
+//
+//  CRTICEPGM STMF('/prj/noxdb-tutorials/msProduct.rpgle') SVRID(NOXDBTUT)
+//
+//
+//  By     Date       PTF     Description
+//  ------ ---------- ------- ---------------------------------------------------
+//  NLI    12.06.2026         Cleanup for CEC2026
+//  NLI    16.05.2025         New program
+//  ----------------------------------------------------------------------------- 
  /include qrpgleref,noxDB
  /include qrpgleref,iceUtility
 
-/* -------------------------------------------------------------------- *\ 
-   	return a resulset from the SQL select 
-
-	use the the IceBreak sandbox at "sandbox.icebreak.org"
-	or configure your host table to have MY_IBM_I
-
-	Note the "payload" parameter on the URL is a IceBreak shortcut 
-	for a HTTP POST with the same payload.
-	Only use the HTTP GET .. ?payload for test and debugging. Never in production.  
-
-	// Rest style
-	http://MY_IBM_I:60666/router/msProduct/simple?payload={}
-
-	
-\* -------------------------------------------------------------------- */
+//  ----------------------------------------------------------------------------- 
+//    	return a resulset from the SQL select 
+// 
+// 	use the the IceBreak sandbox at "sandbox.icebreak.org"
+// 	or configure your host table to have MY_IBM_I
+// 
+// 	Note the "payload" parameter on the URL is a IceBreak shortcut 
+// 	for a HTTP POST with the same payload.
+// 	Only use the HTTP GET .. ?payload for test and debugging. Never in production.  
+// 
+// 	// Rest style
+// 	http://MY_IBM_I:60666/router/msProduct/simple?payload={}
+// 
+// 	
+//  ----------------------------------------------------------------------------- 
 dcl-proc simple export;
 
 	dcl-pi *n pointer;
@@ -47,25 +48,21 @@ dcl-proc simple export;
 
 end-proc;
 
-/* -------------------------------------------------------------------- *\ 
-   	return a resulset from the SQL select 
-
-	use the the IceBreak sandbox at "sandbox.icebreak.org"
-	or configure your host table to have MY_IBM_I
-
-	Note the "payload" parameter on the URL is a IceBreak shortcut 
-	for a HTTP POST with the same payload.
-	Only use the HTTP GET .. ?payload for test and debugging. Never in production.  
-
-	// Rest style
-	http://MY_IBM_I:60666/router/msProduct/getRows?payload={
-		"start": 11,
-		"limit": 20,
-		"search" : "sony"
-	}
-
-
-\* -------------------------------------------------------------------- */
+//  ----------------------------------------------------------------------------- 
+//   	return a resulset from the SQL select 
+//
+//	use the the IceBreak sandbox at "sandbox.icebreak.org"
+//	or configure your host table to have MY_IBM_I
+//
+//	Note the "payload" parameter on the URL is a IceBreak shortcut 
+//	for a HTTP POST with the same payload.
+//	Only use the HTTP GET .. ?payload for test and debugging. Never in production.  
+//
+//	// Rest style
+//	http://MY_IBM_I:60666/router/msProduct/getRows?payload={"start":11,"limit":20,"search":"sony"}
+//
+//
+//  ----------------------------------------------------------------------------- 
 dcl-proc getRows export;
 
 	dcl-pi *n pointer;
@@ -102,9 +99,9 @@ dcl-proc getRows export;
 	return pResultSet;
 
 end-proc;
-/* -------------------------------------------------------------------- *\
-   Normal proccedure for adding the " order by " clause to the sql 
-\* -------------------------------------------------------------------- */
+//  ----------------------------------------------------------------------------- 
+// Normal proccedure for adding the " order by " clause to the sql 
+//  ----------------------------------------------------------------------------- 
 dcl-proc addOrderByClause;
 
 	dcl-pi *N;
@@ -123,9 +120,9 @@ dcl-proc addOrderByClause;
 
 
 end-proc;
-/* -------------------------------------------------------------------- *\
-   Normal proccedure for adding the " order by " clause to the sql 
-\* -------------------------------------------------------------------- */
+//  ----------------------------------------------------------------------------- 
+//   Normal proccedure for adding the " order by " clause to the sql 
+//  ----------------------------------------------------------------------------- 
 dcl-proc addWhereClause;
 
 	dcl-pi *n;
@@ -163,9 +160,9 @@ dcl-proc addWhereClause;
 	endif;
 
 end-proc;
-/* -------------------------------------------------------------------- *\
-   update row 
-\* -------------------------------------------------------------------- */
+//  ----------------------------------------------------------------------------- 
+//  update row 
+//  ----------------------------------------------------------------------------- 
 dcl-proc update export;
 
 	dcl-pi *n pointer;
@@ -201,10 +198,10 @@ dcl-proc update export;
 	return pOutput;
 
 end-proc;
-/* -------------------------------------------------------------------- *\
-   if the key is null, it is a insert operation
-   then find the next key 
-\* -------------------------------------------------------------------- */
+//  ----------------------------------------------------------------------------- 
+//  if the key is null, it is a insert operation
+//  then find the next key 
+//  ----------------------------------------------------------------------------- 
 dcl-proc ensureKey;
 
 	dcl-pi *n;
@@ -224,9 +221,9 @@ dcl-proc ensureKey;
 	endif;
 
 end-proc;
-/* -------------------------------------------------------------------- *\
-   delete row 
-\* -------------------------------------------------------------------- */
+//  ----------------------------------------------------------------------------- 
+//  delete row 
+//  ----------------------------------------------------------------------------- 
 dcl-proc delete export;
 
 	dcl-pi *n pointer;
@@ -254,14 +251,12 @@ dcl-proc delete export;
 
 end-proc;
 
-/* -------------------------------------------------------------------- *\ 
-   	Get the table metadata: columns and types
-
-	http://sandbox.icebreak.org:60666/router?payload={
-		"action":"msProduct.getMetadata"
-	}
-
-\* -------------------------------------------------------------------- */
+//  ----------------------------------------------------------------------------- 
+//  Get the table metadata: columns and types
+// 
+//  http://MY_IBM_I:60666/router/msProduct/getMetadata
+//  ----------------------------------------------------------------------------- 
+// 
 dcl-proc getMetadata export;
 
 	dcl-pi *n pointer;

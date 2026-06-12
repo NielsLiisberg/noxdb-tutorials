@@ -1,5 +1,5 @@
 **free
-ctl-opt copyright('System & Method (C), 2025');
+ctl-opt copyright('System & Method (C), 2025-2026');
 ctl-opt decEdit('0.') datEdit(*YMD.) main(main); 
 ctl-opt bndDir('NOXDB':'ICEUTILITY');
 
@@ -16,6 +16,7 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 // 
 // By     Date       PTF     Description
 // ------ ---------- ------- ---------------------------------------------------
+// NLI    12.06.2026         Cleanup for CEC2026
 // NLI    10.05.2025         New program
 // ----------------------------------------------------------------------------- 
  /include qrpgleref,jsonparser
@@ -73,18 +74,20 @@ dcl-proc exampleDataInto;
 
 	dcl-s pInputRows  pointer;
 
-    // This is our array of objects:
-    pInputRows = json_sqlResultSet(' -
-		select *                -
-		from corpdata.employee  -
-		limit 100               -
+   // This is our array of objects:
+   pInputRows = json_sqlResultSet(' -
+      select *                -
+      from corpdata.employee  -
+      limit 100               -
 	');
 
-    // Keep track of number of rows:
-    count = json_getLength(pInputRows); 
+   // Keep track of number of rows:
+   count = json_getLength(pInputRows); 
 
-    data-into employee %data('':'allowextra=yes allowmissing=yes') %parser(json_DataInto(pInputRows));
-    json_delete(pInputRows);
+   data-into employee %data('':'allowextra=yes allowmissing=yes') %parser(json_DataInto(pInputRows));
+
+on-exit;
+   json_delete(pInputRows);
 
 end-proc;
 // ----------------------------------------------------------------------------- 
@@ -101,7 +104,7 @@ dcl-proc exampleDataGen;
 	dcl-s pOutputRows pointer;
 	dcl-s dummy       char(1);
 	
-    data-gen %subarr(employee : 1: count)  %data(dummy: '') %gen(json_DataGen(pOutputRows));
+   data-gen %subarr(employee : 1: count)  %data(dummy: '') %gen(json_DataGen(pOutputRows));
 	return pOutputRows;
 
 end-proc;

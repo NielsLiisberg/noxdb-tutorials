@@ -1,5 +1,5 @@
 **free
-ctl-opt copyright('System & Method (C), 2025');
+ctl-opt copyright('System & Method (C), 2025-2026');
 ctl-opt decEdit('0,') datEdit(*YMD.) main(main); 
 ctl-opt bndDir('NOXDB':'ICEUTILITY');
 
@@ -16,6 +16,7 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 // 
 // By     Date       PTF     Description
 // ------ ---------- ------- ---------------------------------------------------
+// NLI    12.06.2026         Cleanup for CEC2026
 // NLI    10.05.2025         New program
 // ----------------------------------------------------------------------------- 
  /include qrpgleref,jsonparser
@@ -40,11 +41,14 @@ dcl-proc main;
 	pResult = json_sqlResultRow(empProjSql(employeeNumber)); 
 	pResponse = json_locate(pResult: 'rows[0]');
 	responseWriteJson(pResponse);
-	json_delete(pResult);
+
+on-exit;
+	json_delete(pResponse);
 
 
 end-proc;
 
+// ----------------------------------------------------------------------------- 
 dcl-proc empProjSql; 
 
 	dcl-pi *N varchar(5000);
@@ -52,47 +56,47 @@ dcl-proc empProjSql;
 	end-pi; 
 
 	return 
-    `select json_array(
-        (
+     `select json_array(
+         (
             select json_object(
-                'employeeNumber' : int(empno),
-                'Name' :  rtrim(firstnme) || (' ' || midinit || ' ') || rtrim (lastname),  
-                'workDepartment' : workdept,
-                'phoneNumber'    : phoneno,
-                'hireDate'       : hiredate,
-                'jobTitle'       : job,
-                'educationLevel' : edlevel,
-                'sex'            : case when sex='M' then 'Male' when sex='F' then 'Female' else 'Other' end ,
-                'birthDate'      : birthdate,
-                'salary'         : salary,
-                'bonus'          : bonus,
-                'commission'     : comm,
-                'projects'       : json_array(                          
-                    (
-                        select json_object(
-                            'projNumber'   : project.projno,
-                            'projName' : projname,
-                            'actNumber'    : actno,
-                            'empTime'  : emptime,
-                            'emstDate' : emstdate,
-                            'emenDate' : emendate,
-                            'deptNumber'   : deptno,
-                            'respEmployee'  : respemp,
-                            'prstaff'  : prstaff,
-                            'prstDate' : prstdate,
-                            'prenDate' : prendate,
-                            'majProj'  : majproj
-                        )   
-                        from corpdata.empprojact
-                        left join corpdata.PROJECT  on empprojact.projno = PROJECT.projno
-                        where empprojact.empno = employee.empno
-                    ) format json
-                )
+               'employeeNumber' : int(empno),
+               'Name' :  rtrim(firstnme) || (' ' || midinit || ' ') || rtrim (lastname),  
+               'workDepartment' : workdept,
+               'phoneNumber'    : phoneno,
+               'hireDate'       : hiredate,
+               'jobTitle'       : job,
+               'educationLevel' : edlevel,
+               'sex'            : case when sex='M' then 'Male' when sex='F' then 'Female' else 'Other' end ,
+               'birthDate'      : birthdate,
+               'salary'         : salary,
+               'bonus'          : bonus,
+               'commission'     : comm,
+               'projects'       : json_array(                          
+                  (
+                     select json_object(
+                        'projNumber'   : project.projno,
+                        'projName' : projname,
+                        'actNumber'    : actno,
+                        'empTime'  : emptime,
+                        'emstDate' : emstdate,
+                        'emenDate' : emendate,
+                        'deptNumber'   : deptno,
+                        'respEmployee'  : respemp,
+                        'prstaff'  : prstaff,
+                        'prstDate' : prstdate,
+                        'prenDate' : prendate,
+                        'majProj'  : majproj
+                     )   
+                     from corpdata.empprojact
+                     left join corpdata.PROJECT  on empprojact.projno = PROJECT.projno
+                     where empprojact.empno = employee.empno
+                  ) format json
+               )
             )
             from corpdata.employee
             where empno = ${strQuot(employeeNumber)}
-        ) format json                       
-	) rows 
-    from sysibm.sysdummy1`;
+         ) format json                       
+	   ) rows 
+      from sysibm.sysdummy1`;
 end-proc;
 

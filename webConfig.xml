@@ -5,6 +5,16 @@
 -->
 <configuration>
 
+   <!--
+		envvar is the ENVVAR for the application server job. If you utilize the RPG/JAVA instead of the IceBreak native java,
+		you can set up the RPG/JAVA classpath and propertylist here. Don't confuse this by the java tag whic is only for IceBreak native JVM.
+		Other envvar like PATH etc can be set here if you are using QSH, PASE or other unix like feature relying on environment vars.   
+	 -->  
+	<envvar>
+      <var name="PASE_PATH" value="/QOpenSys/pkgs/bin:/QOpenSys/usr/bin:/usr/ccs/bin:/QOpenSys/usr/bin/X11:/usr/sbin:.:/usr/bin"/>
+	</envvar>
+
+
 	<!--
 		Run a series of commands - each line is a a separate system shell call, so line spanning is not allowed
 	 -->
@@ -62,15 +72,6 @@
 		encryptionKey="Life is good"
 	/>
 	  
-	<!--
-		envvar is the ENVVAR for the application server job. If you utilize the RPG/JAVA instead of the IceBreak native java,
-		you can set up the RPG/JAVA classpath and propertylist here. Don't confuse this by the java tag whic is only for IceBreak native JVM.
-		Other envvar like PATH etc can be set here if you are using QSH, PASE or other unix like feature relying on environment vars.   
-	 -->  
-	<xxx_envvar>
-		<var name="CLASSPATH" value="/icebreak/java/IceBreakTools.jar"/> 
-		<var name="QIBM_RPG_JAVA_PROPERTIES" value="-Djava.awt.headless=true;-Djava.version=1.8;-Dos400.stderr=file:stderr.txt;"/> 
-	</xxx_envvar>
 
 	
 

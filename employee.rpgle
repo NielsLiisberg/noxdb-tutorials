@@ -1,6 +1,6 @@
 **free
 //<%@ language="RPGLE" pgmtype="srvpgm" pgmopt="export(*ALL)" %>
-ctl-opt copyright('System & Method (C), 2019-2025');
+ctl-opt copyright('System & Method (C), 2029-2026');
 ctl-opt decEdit('0,') datEdit(*YMD.) nomain; 
 ctl-opt bndDir('NOXDB' );
 // -----------------------------------------------------------------------------
@@ -10,6 +10,7 @@ ctl-opt bndDir('NOXDB' );
 // 
 // By     Date       PTF     Description
 // ------ ---------- ------- ---------------------------------------------------
+// NLI    12.06.2026         Cleanup for CEC2026
 // NLI    16.05.2025         New program
 // ----------------------------------------------------------------------------- 
 /include qrpgleref,noxDB

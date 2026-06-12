@@ -1,5 +1,5 @@
 **free
-ctl-opt copyright('System & Method (C), 2025');
+ctl-opt copyright('System & Method (C), 2025-2026');
 ctl-opt decEdit('0,') datEdit(*YMD.) main(main); 
 ctl-opt bndDir('NOXDB':'ICEUTILITY':'QC2LE');
 
@@ -13,6 +13,7 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY':'QC2LE');
 // 
 // By     Date       PTF     Description
 // ------ ---------- ------- ---------------------------------------------------
+// NLI    12.06.2026         Cleanup for CEC2026
 // NLI    10.05.2025         New program
 // ----------------------------------------------------------------------------- 
  /include qrpgleref,jsonparser

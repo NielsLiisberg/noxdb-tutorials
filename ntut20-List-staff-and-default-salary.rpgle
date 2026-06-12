@@ -1,5 +1,5 @@
 **free
-ctl-opt copyright('System & Method (C), 2025');
+ctl-opt copyright('System & Method (C), 2025-2026');
 ctl-opt decEdit('0,') datEdit(*YMD.) main(main); 
 ctl-opt bndDir('NOXDB':'ICEUTILITY');
 
@@ -16,6 +16,7 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 //
 // By     Date       PTF     Description
 // ------ ---------- ------- ---------------------------------------------------
+// NLI    12.06.2026         Cleanup for CEC2026
 // NLI    10.05.2025         New program
 // ----------------------------------------------------------------------------- 
  /include qrpgleref,jsonparser
@@ -30,17 +31,17 @@ dcl-proc main;
 	
 	setContentType('application/json; charset=utf-8');
 
-    pStaff = json_sqlResultSet('-
+   pStaff = json_sqlResultSet('-
 		select *                -
 		from corpdata.staff     -
 	');
 		
-    // For each employee we caclulate the bonus in Euro
-    // we use a noxDb iterator to loop through the employees
-    staffList = json_setIterator(pStaff);
-    dow json_ForEach(staffList);
-        calculateDefaultSalary (staffList.this);
-    enddo;
+   // For each employee we caclulate the bonus in Euro
+   // we use a noxDb iterator to loop through the employees
+   staffList = json_setIterator(pStaff);
+   dow json_ForEach(staffList);
+      calculateDefaultSalary (staffList.this);
+   enddo;
 
 	responseWriteJson(pStaff);
 
@@ -48,7 +49,6 @@ on-exit;
 	json_delete(pStaff);
 
 end-proc;
-
 // -----------------------------------------------------------------------------	
 // Calculate the default salary for each employee
 // Note we are using the json_CallProgram to call a classic RPG program
@@ -68,7 +68,11 @@ dcl-proc calculateDefaultSalary;
 	json_copyValue (pCalculatorInput: 'years' : pStaff: 'years');	
 	json_copyValue (pCalculatorInput: 'job'   : pStaff: 'job'  );	
 
-	pCalculatorOutput = json_CallProgram  ( '*LIBL':'NTUT99' : pCalculatorInput);
+	pCalculatorOutput = json_CallProgram  ( 
+      '*LIBL':
+      'NTUT99' : 
+      pCalculatorInput
+   );
 
 	// Get the default salary from the staff object
 	defaultSalary = json_getNum(pCalculatorOutput: 'salary');

@@ -1,5 +1,5 @@
 **free
-ctl-opt copyright('System & Method (C), 2025');
+ctl-opt copyright('System & Method (C), 2025-2026');
 ctl-opt decEdit('0,') datEdit(*YMD.) main(main); 
 ctl-opt bndDir('NOXDB':'ICEUTILITY');
 
@@ -16,6 +16,7 @@ ctl-opt bndDir('NOXDB':'ICEUTILITY');
 // 
 // By     Date       PTF     Description
 // ------ ---------- ------- ---------------------------------------------------
+// NLI    12.06.2026         Cleanup for CEC2026
 // NLI    10.05.2025         New program
 // ----------------------------------------------------------------------------- 
  /include qrpgleref,jsonparser
@@ -40,12 +41,12 @@ dcl-proc main;
 
 	pEmployees = getEmplyeesAndProjects();
 
-    // For each employee we caclulate the bonus in Euro
-    // we use a noxDb iterator to loop through the employees
-    employeeList = json_setIterator(pEmployees);
-    dow json_ForEach(employeeList);
-        convertBonusUsd2Euro(employeeList.this);
-    enddo;
+   // For each employee we caclulate the bonus in Euro
+   // we use a noxDb iterator to loop through the employees
+   employeeList = json_setIterator(pEmployees);
+   dow json_ForEach(employeeList);
+      convertBonusUsd2Euro(employeeList.this);
+   enddo;
 
 	responseWriteJson(pEmployees);
 
@@ -59,16 +60,16 @@ end-proc;
 // Convert the bonus from USD to Euro
 // -----------------------------------------------------------------------------
 dcl-proc convertBonusUsd2Euro;       
-    dcl-pi *N;
-        pEmployee pointer value;
-    end-pi;
+   dcl-pi *N;
+      pEmployee pointer value;
+   end-pi;
 
-    dcl-s bonus         packed(13:2);    
-    dcl-s bonuseuro     packed(13:2);    
+   dcl-s bonus         packed(13:2);    
+   dcl-s bonuseuro     packed(13:2);    
 
-    bonus = json_getNum (pEmployee: 'bonus' );
-    bonusEuro = bonus * getConversionRateUSD2Euro();
-    json_setNum (pEmployee: 'bonusEuro' : bonusEuro);
+   bonus = json_getNum (pEmployee: 'bonus' );
+   bonusEuro = bonus * getConversionRateUSD2Euro();
+   json_setNum (pEmployee: 'bonusEuro' : bonusEuro);
 
 end-proc;
 
@@ -82,26 +83,26 @@ end-proc;
 // -----------------------------------------------------------------------------
 dcl-proc getConversionRateUSD2Euro;       
 
-    dcl-pi *N packed(13:9);
-    end-pi;
+   dcl-pi *N packed(13:9);
+   end-pi;
 
 
-    dcl-s bonus         packed(13:2);    
-    dcl-s bonuseuro     packed(13:2);    
-    dcl-s pFlorate      pointer;
-    dcl-s rate          packed(13:9) static inz(0);
+   dcl-s bonus         packed(13:2);    
+   dcl-s bonuseuro     packed(13:2);    
+   dcl-s pFlorate      pointer;
+   dcl-s rate          packed(13:9) static inz(0);
 
-    // already calculate? use the cached value! note it is delared static     
-    if rate <> 0;
-        return rate;
-    endif;
+   // already calculate? use the cached value! note it is delared static     
+   if rate <> 0;
+      return rate;
+   endif;
 
 
-    pFlorate = json_httpRequest ('http://www.floatrates.com/daily/usd.json');
-    rate = json_getNum (pFlorate: 'eur.rate' );
-    json_delete(pFlorate);
-    
-    return rate; 
+   pFlorate = json_httpRequest ('http://www.floatrates.com/daily/usd.json');
+   rate = json_getNum (pFlorate: 'eur.rate' );
+   json_delete(pFlorate);
+   
+   return rate; 
 
 end-proc;
 
@@ -111,66 +112,66 @@ end-proc;
 // -----------------------------------------------------------------------------
 dcl-proc getEmplyeesAndProjects;
 
-    dcl-pi *n pointer;
-    end-pi;
+   dcl-pi *n pointer;
+   end-pi;
 
 	dcl-s pEmployees		  pointer;	
 	dcl-s pResult 		      pointer;	
 
 	pResult = json_sqlResultRow(
-        `select json_array(
-            (
-                select json_object(
-                    'employeeNumber' : int(empno),
-                    'Name'           :  rtrim(firstnme) || (' ' || midinit || ' ') || rtrim (lastname),  
-                    'workDepartment' : workdept,
-                    'phoneNumber'    : phoneno,
-                    'hireDate'       : hiredate,
-                    'jobTitle'       : job,
-                    'educationLevel' : edlevel,
-                    'sex'            : case when sex='M' then 'Male' when sex='F' then 'Female' else 'Other' end ,
-                    'birthDate'      : birthdate,
-                    'salary'         : salary,
-                    'bonus'          : bonus,
-                    'commission'     : comm,
-                    'projects'       : json_array(                          
-                        (
-                            select json_object(
-                                'projNumber'   : project.projno,
-                                'projName' : projname,
-                                'actNumber'    : actno,
-                                'empTime'  : emptime,
-                                'emstDate' : emstdate,
-                                'emenDate' : emendate,
-                                'deptNumber'   : deptno,
-                                'respEmployee'  : respemp,
-                                'prstaff'  : prstaff,
-                                'prstDate' : prstdate,
-                                'prenDate' : prendate,
-                                'majProj'  : majproj
-                            )   
-                            from corpdata.empprojact
-                            left join corpdata.PROJECT  on empprojact.projno = PROJECT.projno
-                            where empprojact.empno = employee.empno
-                        ) format json
-                    )
-                )
-                from corpdata.employee
-                order by empno 
-            ) format json                       
-        ) rows 
-        from sysibm.sysdummy1`
+      `select json_array(
+         (
+            select json_object(
+               'employeeNumber' : int(empno),
+               'Name'           :  rtrim(firstnme) || (' ' || midinit || ' ') || rtrim (lastname),  
+               'workDepartment' : workdept,
+               'phoneNumber'    : phoneno,
+               'hireDate'       : hiredate,
+               'jobTitle'       : job,
+               'educationLevel' : edlevel,
+               'sex'            : case when sex='M' then 'Male' when sex='F' then 'Female' else 'Other' end ,
+               'birthDate'      : birthdate,
+               'salary'         : salary,
+               'bonus'          : bonus,
+               'commission'     : comm,
+               'projects'       : json_array(                          
+                  (
+                     select json_object(
+                        'projNumber'   : project.projno,
+                        'projName'     : projname,
+                        'actNumber'    : actno,
+                        'empTime'      : emptime,
+                        'emstDate'     : emstdate,
+                        'emenDate'     : emendate,
+                        'deptNumber'   : deptno,
+                        'respEmployee' : respemp,
+                        'prstaff'      : prstaff,
+                        'prstDate'     : prstdate,
+                        'prenDate'     : prendate,
+                        'majProj'      : majproj
+                     )   
+                     from corpdata.empprojact
+                     left join corpdata.PROJECT  on empprojact.projno = PROJECT.projno
+                     where empprojact.empno = employee.empno
+                  ) format json
+               )
+            )
+            from corpdata.employee
+            order by empno 
+         ) format json                       
+      ) rows 
+      from sysibm.sysdummy1`
     );
 
     // Note - here we are returning the employees array
     // that exists in the result set as "rows"
     // so we need to unlink "separate" it from the result set
 	pEmployees = json_locate(pResult: 'rows');
-    json_nodeUnlink(pEmployees);
-    return pEmployees;
+   json_nodeUnlink(pEmployees);
+   return pEmployees;
 
 on-exit;    
-    json_delete(pResult);
+   json_delete(pResult);
 
 end-proc;
 
