@@ -7,3 +7,5 @@ error.txt
 /headers/qoar/*
 /release/release.savf
 index.html
+.claude/rules/blueprint-mcp.instructions.md
+.github/instructions/blueprint-mcp.instructions.md
