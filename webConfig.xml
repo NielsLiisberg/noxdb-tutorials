@@ -63,7 +63,7 @@
 		The session tag handles the behavior of the application server:
 			The cookie attribute is extra parameters you can append for the session cookie.
 			The exitPgm API is called when a session is created and when it is terminated to let you control custom housekeeping
-			Se the ICEBREAK/QSAMPLE source file - ICESESSION for an example     
+			See IceBreak-Samples, server-exits/iceSession.rpgle, for an example     
 	-->
 	<xxx_session 
 		exitPgm="MYLIB/ICESESSION" 
